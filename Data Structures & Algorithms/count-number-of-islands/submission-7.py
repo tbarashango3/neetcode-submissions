@@ -1,0 +1,36 @@
+class Solution:
+    def numIslands(self, grid: List[List[str]]) -> int:
+        # can only move verticlaly and horizontally
+        # every time we find a 1, loop through its neighbors, and set any neighboring cells that are also 1 to 0
+        # every time we reach a new island, increase count by 1
+
+        row = len(grid)
+        col = len(grid[0])
+        count = 0
+
+        def dfs(r, c):
+            if r < 0 or c < 0 or r >= row or c >= col or grid[r][c] == "0":
+                return
+            grid[r][c] = "0"
+            dfs(r+1, c)
+            dfs(r-1, c)
+            dfs(r, c+1)
+            dfs(r, c-1)
+
+        for r in range(row):
+            for c in range(col):
+                if grid[r][c] == "1":
+                    count += 1
+                    dfs(r, c)
+        
+        return count
+
+class Test:
+    if __name__ == "__main__":
+        solution = Solution()
+        print(solution.numIslands(grid = [
+    ["1","1","0","0","1"],
+    ["1","1","0","0","1"],
+    ["0","0","1","0","0"],
+    ["0","0","0","1","1"]
+  ]))
